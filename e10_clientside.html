@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Registration Form</h2>
+
+    <form id="registrationForm" onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span id="emailError" class="error"></span>
+        <br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <span id="passwordError" class="error"></span>
+        <br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+        <span id="phoneError" class="error"></span>
+        <br>
+
+        <input type="submit" value="Register">
+    </form>
+
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var phone = document.getElementById("phone").value;
+
+            // Validate email
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById("emailError").innerText = "Invalid email format";
+                return false;
+            } else {
+                document.getElementById("emailError").innerText = "";
+            }
+
+            // Validate password strength (at least 8 characters)
+            if (password.length < 8) {
+                document.getElementById("passwordError").innerText = "Password must be at least 8 characters";
+                return false;
+            } else {
+                document.getElementById("passwordError").innerText = "";
+            }
+
+            // Validate phone number (10 digits)
+            var phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(phone)) {
+                document.getElementById("phoneError").innerText = "Invalid phone number";
+                return false;
+            } else {
+                document.getElementById("phoneError").innerText = "";
+            }
+
+            // Additional validation rules can be added as needed
+
+            // If all validations pass, the form can be submitted
+            return true;
+        }
+    </script>
+
+</body>
+</html>

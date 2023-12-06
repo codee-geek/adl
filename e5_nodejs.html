@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js To-Do List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        #todoList {
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 70%;
+        }
+
+        button.add {
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Node.js To-Do List</h1>
+
+    <div id="todoList">
+        <input type="text" id="taskInput" placeholder="Add a new task">
+        <button class="add" onclick="addTask()">Add</button>
+        <ul id="tasks">
+            <!-- Tasks will be dynamically added here -->
+        </ul>
+    </div>
+
+    <script>
+        // Mock data for demonstration
+        const initialTasks = ["Task 1", "Task 2", "Task 3"];
+
+        // Function to add tasks dynamically
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskText = taskInput.value.trim();
+            
+            if (taskText !== "") {
+                const tasksList = document.getElementById("tasks");
+
+                // Create new list item
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    <span>${taskText}</span>
+                    <button onclick="removeTask(this)">Remove</button>
+                `;
+
+                // Append the new list item to the list
+                tasksList.appendChild(listItem);
+
+                // Clear the input field
+                taskInput.value = "";
+            }
+        }
+
+        // Function to remove tasks dynamically
+        function removeTask(button) {
+            const listItem = button.parentNode;
+            const tasksList = document.getElementById("tasks");
+            tasksList.removeChild(listItem);
+        }
+
+        // Initialize the tasks from mock data
+        document.addEventListener("DOMContentLoaded", function () {
+            const tasksList = document.getElementById("tasks");
+
+            initialTasks.forEach(function (taskText) {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `
+                    <span>${taskText}</span>
+                    <button onclick="removeTask(this)">Remove</button>
+                `;
+
+                tasksList.appendChild(listItem);
+            });
+        });
+    </script>
+
+</body>
+</html>

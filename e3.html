@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read and Write HTML with jQuery</title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+    <h1 id="exampleHeading">Hello, jQuery!</h1>
+
+    <div id="contentContainer">
+        <p>This is some initial content.</p>
+    </div>
+
+    <button id="readButton">Read Content</button>
+    <button id="writeButton">Write Content</button>
+
+    <script>
+        // Read HTML content
+        $("#readButton").on("click", function() {
+            var headingText = $("#exampleHeading").text();
+            var paragraphText = $("#contentContainer p").text();
+            alert("Heading Text: " + headingText + "\nParagraph Text: " + paragraphText);
+        });
+
+        // Write HTML content
+        $("#writeButton").on("click", function() {
+            // Update heading text
+            $("#exampleHeading").text("jQuery is Awesome!");
+
+            // Append a new paragraph
+            $("#contentContainer").append("<p>This is new content added with jQuery!</p>");
+        });
+    </script>
+
+</body>
+</html>

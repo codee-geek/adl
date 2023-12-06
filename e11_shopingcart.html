@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        #cart {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cart">
+        <h2>Shopping Cart</h2>
+        <div id="items">
+            <!-- Items will be dynamically added here -->
+        </div>
+        <div class="total">Total: $<span id="total">0.00</span></div>
+        <button onclick="addItem()">Add Item</button>
+    </div>
+
+    <script>
+        let cartItems = [];
+
+        function updateCart() {
+            const itemsContainer = document.getElementById('items');
+            const totalSpan = document.getElementById('total');
+            let total = 0;
+
+            // Clear existing items
+            itemsContainer.innerHTML = '';
+
+            // Add each item to the cart
+            cartItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('item');
+
+                const itemImage = document.createElement('img');
+                itemImage.src = item.image;
+                itemImage.alt = item.name;
+
+                const itemName = document.createElement('span');
+                itemName.textContent = item.name;
+
+                const itemPrice = document.createElement('span');
+                itemPrice.textContent = `$${item.price.toFixed(2)}`;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeItem(item);
+
+                itemDiv.appendChild(itemImage);
+                itemDiv.appendChild(itemName);
+                itemDiv.appendChild(itemPrice);
+                itemDiv.appendChild(removeButton);
+
+                itemsContainer.appendChild(itemDiv);
+
+                // Update total
+                total += item.price;
+            });
+
+            // Update total price
+            totalSpan.textContent = total.toFixed(2);
+        }
+
+        function addItem() {
+            const newItem = {
+                name: 'Item ' + (cartItems.length + 1),
+                image: 'placeholder.jpg', // Replace with actual image path
+                price: Math.random() * 50 + 1, // Random price between 1 and 50
+            };
+
+            cartItems.push(newItem);
+            updateCart();
+        }
+
+        function removeItem(itemToRemove) {
+            cartItems = cartItems.filter(item => item !== itemToRemove);
+            updateCart();
+        }
+
+        // Initial update
+        updateCart();
+    </script>
+
+</body>
+</html>
